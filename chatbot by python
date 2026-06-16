@@ -1,0 +1,107 @@
+# Basic Chatbot Program
+# this is my chatbot project for internship
+# i used if elif and loops to make this work
+
+# i made a function that will check user message and return reply
+def get_reply(msg):
+
+    # first i convert message to lowercase
+    # this way Hello and hello both will work same
+    msg = msg.lower()
+    msg = msg.strip()
+
+    # now i check what user typed and give reply
+
+    if msg == "hello" or msg == "hi" or msg == "hey":
+        reply = "Hi! How are you doing?"
+
+    elif msg == "how are you" or msg == "how r you" or msg == "hru":
+        reply = "I am fine thank you! What about you?"
+
+    elif msg == "i am fine" or msg == "good" or msg == "i m fine" or msg == "im fine":
+        reply = "Oh nice! Glad to hear that :)"
+
+    elif msg == "what is your name" or msg == "your name" or msg == "name":
+        reply = "My name is PyBot. Nice to meet you!"
+
+    elif msg == "who made you" or msg == "who created you":
+        reply = "A student made me using Python for internship task!"
+
+    elif msg == "what can you do" or msg == "help" or msg == "help me":
+        reply = "I can talk with you! Say hello or ask how are you or say bye."
+
+    elif msg == "how old are you" or msg == "your age" or msg == "age":
+        reply = "I am just a few lines of code so very young haha!"
+
+    elif msg == "where are you from" or msg == "your location":
+        reply = "I live inside your computer hehe!"
+
+    elif msg == "what is python" or msg == "tell me about python":
+        reply = "Python is a programming language. I am made using Python only!"
+
+    elif msg == "tell me a joke" or msg == "joke":
+        reply = "Why do programmers prefer dark mode? Because light attracts bugs! haha"
+
+    elif msg == "what time is it" or msg == "time":
+        reply = "Sorry I dont have a clock. Please check your phone!"
+
+    elif msg == "ok" or msg == "okay" or msg == "ohk" or msg == "alright":
+        reply = "Ok ok! Tell me something else."
+
+    elif msg == "thank you" or msg == "thanks" or msg == "thankyou":
+        reply = "You are welcome! Always happy to help :)"
+
+    elif msg == "bye" or msg == "goodbye" or msg == "tata" or msg == "bb":
+        reply = "Bye bye! Have a great day ahead!"
+
+    elif msg == "exit" or msg == "quit" or msg == "stop":
+        reply = "Okay stopping now. Goodbye!"
+
+    else:
+        reply = "Hmm i did not get that. Can you say something else?"
+
+    return reply
+
+
+# this is the main part of my program
+# here i run the chatbot in a loop
+
+print("===================================")
+print("        WELCOME TO PYBOT")
+print("===================================")
+print("You can talk to me anytime!")
+print("If you want to stop just type bye")
+print("-----------------------------------")
+print("")
+
+# i use while true so chat keeps going
+while True:
+
+    # take message from user
+    user_msg = input("You  : ")
+
+    # if user pressed enter without typing anything
+    if user_msg == "" or user_msg == " ":
+        print("Bot  : Please type something i am waiting!\n")
+        continue
+
+    # call function and store the reply
+    bot_reply = get_reply(user_msg)
+
+    # print the bot reply
+    print("Bot  :", bot_reply)
+    print("")
+
+    # check if user wants to leave
+    # if yes then break the loop and stop
+   leave_words = ["bye", "goodbye", "exit", "quit", "stop", "tata" ], 
+                    
+    check_msg = user_msg.lower().strip()
+
+    if check_msg in leave_words:
+        break
+
+    print(" ")
+    print("===================================")
+    print("     Chat Ended. See you again!")
+    print("===================================")
