@@ -1,0 +1,134 @@
+# Stock Portfolio Tracker
+# Made by: [Your Name]
+# Date: June 2025
+# This is a simple program to track stock investments
+
+import csv
+
+# these are the stock prices i am using (hardcoded)
+stock_prices = {
+    "AAPL": 180,
+    "TSLA": 250,
+    "GOOGL": 140,
+    "MSFT": 330
+}
+
+# this function just prints what stocks are available
+def show_stocks():
+    print("\nAvailable stocks are:")
+    print("----------------------")
+    for s in stock_prices:
+        print(s, "-->", "$" + str(stock_prices[s]))
+    print("----------------------")
+
+# this function takes input for one stock from user
+def take_input():
+    name = input("Enter stock name: ").upper().strip()
+
+    # check if stock is valid or not
+    if name not in stock_prices:
+        print("Sorry, that stock is not available. Try again.")
+        return None, None, None
+
+    qty = input("Enter quantity: ").strip()
+
+    # make sure quantity is a number
+    if qty.isdigit() == False or int(qty) <= 0:
+        print("Quantity should be a positive number. Try again.")
+        return None, None, None
+
+    qty = int(qty)
+    price = stock_prices[name]
+    total = price * qty
+
+    return name, qty, total
+
+# this function prints the final portfolio in a table
+def show_portfolio(my_portfolio):
+    print("\n---------- YOUR PORTFOLIO ----------")
+    print("Stock     Qty     Price     Value")
+    print("------------------------------------")
+
+    grand_total = 0
+
+    for item in my_portfolio:
+        sname = item["name"]
+        squty = item["qty"]
+        sprice = stock_prices[sname]
+        svalue = item["value"]
+        grand_total = grand_total + svalue
+
+        # printing each row
+        print(sname, "     ", squty, "     $" + str(sprice), "     $" + str(svalue))
+
+    print("------------------------------------")
+    print("Total Portfolio Value: $" + str(grand_total))
+    print("------------------------------------\n")
+
+    return grand_total
+
+# this function saves data to a csv file
+def save_csv(my_portfolio, grand_total):
+    file = open("portfolio.csv", "w", newline="")
+    writer = csv.writer(file)
+
+    # write the top row (headings)
+    writer.writerow(["Stock Name", "Quantity", "Price", "Investment Value"])
+
+    # write each stock row
+    for item in my_portfolio:
+        sname = item["name"]
+        squty = item["qty"]
+        sprice = stock_prices[sname]
+        svalue = item["value"]
+        writer.writerow([sname, squty, sprice, svalue])
+
+    # write total at end
+    writer.writerow([])
+    writer.writerow(["", "", "Total", grand_total])
+
+    file.close()
+    print("Saved! Check portfolio.csv in your folder.")
+
+# ---- main program starts here ----
+
+print("====================================")
+print("    STOCK PORTFOLIO TRACKER")
+print("====================================")
+
+# show available stocks first
+show_stocks()
+
+# ask how many stocks user wants to enter
+n = input("\nHow many stocks do you want to add? ")
+
+# check if it is a valid number
+if n.isdigit() == False or int(n) <= 0:
+    print("That's not a valid number. Exiting.")
+else:
+    n = int(n)
+    my_portfolio = []
+    i = 0
+
+    while i < n:
+        print("\nStock", i + 1, "of", n)
+        name, qty, value = take_input()
+
+        # if input was wrong, ask again
+        if name == None:
+            continue
+
+        # add to portfolio list
+        my_portfolio.append({
+            "name": name,
+            "qty": qty,
+            "value": value
+        })
+        i = i + 1
+
+    # show results and save
+    if len(my_portfolio) == 0:
+        print("No stocks added.")
+    else:
+        total = show_portfolio(my_portfolio)
+        save_csv(my_portfolio, total)
